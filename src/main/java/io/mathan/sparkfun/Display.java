@@ -1,3 +1,20 @@
+/*
+ * mathan-sparkfun-4-digit-7-segment-i2c
+ * Copyright (c) 2020 Matthias Hanisch
+ * matthias@mathan.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.mathan.sparkfun;
 
 import java.text.DateFormat;
@@ -39,7 +56,6 @@ public class Display {
   private byte[] BUFFER = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, (byte) 0xff};
 
   private static DateFormat DF = new SimpleDateFormat("HH:mm");
-  private static boolean SHOW_TIME_COLONS = true;
   private final I2C device;
   private final byte address;
 
@@ -120,13 +136,8 @@ public class Display {
     data[1] = DIGITS[Integer.parseInt(""+value.charAt(1))];
     data[2] = DIGITS[Integer.parseInt(""+value.charAt(3))];
     data[3] = DIGITS[Integer.parseInt(""+value.charAt(4))];
-    if(SHOW_TIME_COLONS) {
-      data[4] = DECIMALS_TIME;
-    } else {
-      data[4] = EMPTY;
-    }
+    data[4] = DECIMALS_TIME;
     update(data);
-    SHOW_TIME_COLONS=!SHOW_TIME_COLONS;
   }
 
   private byte[] getInt(int value, boolean leadingZero) {
