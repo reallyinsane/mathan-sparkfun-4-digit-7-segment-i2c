@@ -47,6 +47,13 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/yad2xx/yad2xxJava-1.0.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.3.1</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>
