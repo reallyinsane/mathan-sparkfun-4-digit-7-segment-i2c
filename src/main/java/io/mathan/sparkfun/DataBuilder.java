@@ -69,7 +69,7 @@ public class DataBuilder {
 
   public static byte[] fromFloat(float value, int decimals, boolean leadingZeros) {
     if (decimals == 0) {
-      return fromInt(Float.valueOf(value).intValue(), false);
+      return fromInt(Float.valueOf(value).intValue(), leadingZeros);
     } else {
       byte[] data = new byte[5];
       byte d =0x00;

@@ -59,4 +59,19 @@ public class DataBuilderTest {
     byte[] actual = DataBuilder.fromFloat(0f, 3);
     Assertions.assertArrayEquals(expected, actual);
   }
+
+  @Test
+  public void floatZeroWithNoDecimals() throws Exception {
+    byte[] expected = {Constants.EMPTY, Constants.EMPTY, Constants.EMPTY, Constants.DIGIT_0, Constants.EMPTY};
+    byte[] actual = DataBuilder.fromFloat(0f, 0);
+    Assertions.assertArrayEquals(expected, actual);
+  }
+
+  @Test
+  public void floatZeroWithNoDecimalsWithLeadingZeros() throws Exception {
+    byte[] expected = {Constants.DIGIT_0, Constants.DIGIT_0, Constants.DIGIT_0, Constants.DIGIT_0, Constants.EMPTY};
+    byte[] actual = DataBuilder.fromFloat(0f, 0, true);
+    Assertions.assertArrayEquals(expected, actual);
+  }
+
 }
