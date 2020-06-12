@@ -50,10 +50,11 @@ public class Display {
   private static final byte CMD_3RD = 0x7d;
   private static final byte CMD_4TH = 0x7e;
   private static final byte CMD_INIT= 0x76;
+  private static final byte CMD_ADDRESS = (byte)0x80;
 
   private static final byte[] DIGITS = {DIGIT_0, DIGIT_1, DIGIT_2, DIGIT_3, DIGIT_4, DIGIT_5, DIGIT_6, DIGIT_7, DIGIT_8, DIGIT_9};
-  private byte[] COMMANDS = {CMD_1ST, CMD_2ND, CMD_3RD, CMD_4TH, CMD_DECIMALS, CMD_BRIGHTNESS};
-  private byte[] BUFFER = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, (byte) 0xff};
+  private static final byte[] COMMANDS = {CMD_1ST, CMD_2ND, CMD_3RD, CMD_4TH, CMD_DECIMALS, CMD_BRIGHTNESS};
+  private byte[] buffer = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, (byte) 0xff};
 
   private static DateFormat DF = new SimpleDateFormat("HH:mm");
   private final I2C device;
@@ -68,8 +69,13 @@ public class Display {
     this.address = address;
     device.transactWrite(this.address, CMD_INIT);
     for(int i=0;i<COMMANDS.length;i++) {
-      device.transactWrite(this.address, COMMANDS[i], BUFFER[i]);
+      device.transactWrite(this.address, COMMANDS[i], buffer[i]);
     }
+    device.delay(200);
+  }
+
+  public void setAddress(byte address) throws FTDIException {
+    device.transactWrite(this.address, CMD_ADDRESS, address);
     device.delay(200);
   }
 
@@ -91,9 +97,9 @@ public class Display {
 
   public void update(byte[] data, boolean force) throws FTDIException {
     for(int i=0;i<data.length;i++) {
-      if (force || BUFFER[i]!=data[i]) {
+      if (force || buffer[i]!=data[i]) {
         device.transactWrite(this.address, COMMANDS[i], data[i]);
-        BUFFER[i] = data[i];
+        buffer[i] = data[i];
       }
     }
   }
