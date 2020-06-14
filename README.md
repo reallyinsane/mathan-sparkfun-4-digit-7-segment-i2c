@@ -14,9 +14,26 @@ display.clear();
 // display a value
 display.setInt(9999);
 display.setFloat(99.99);
-display.setTime(12:34);
-
+display.setTime("12:34");
 ```
+
+## Available API
+
+The following table lists the available API methods.
+
+Method|Parameter(s)|Description|
+------|------------|-----------|
+clear()| | Clears the display.|
+setAddress(byte address)      | The new I2C address for the device. | Please see documentation of the [display] for details about valid addresses. |
+setBrightness(byte brightness)   | The new value for brightness. | The brightness of the display can be changed between 0x01 (minimum) and 0xff (maximum).
+setFloat(float value, int decimals)| The float value and the number of decimal places.| Displays the float value. The number of decimal places can be 0 to 3. (No leading zeros shown)|
+setFloat(float value, int decimals, boolean leadingZeros)| The float value, the number of decimal places and a flag enabling/disabling display of leading zeros.| Displays the float value. The number of decimal places can be 0 to 3. Leading zeros are shown depending on the given flag.|
+setInt(int value)| The int value. | Displays the int value without leading zeros.|
+setInt(int value, boolean leadingZeros)| The int value and a flag enabling/disabling display of leading zeros.| Displays the int value.  Leading zeros are shown depending on the given flag.|
+setTime(String time)| The time in format HH:mm. | Displays the time value.|
+
+
+
 ## yad2xx linking
 
 This project is using the yad2xx library released under LGPL3. The dynamic linking is done using Maven dependency mechanism. To change the linking to

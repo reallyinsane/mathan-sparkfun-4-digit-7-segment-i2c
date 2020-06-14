@@ -1,7 +1,28 @@
+/*
+ * mathan-sparkfun-4-digit-7-segment-i2c
+ * Copyright (c) 2020 Matthias Hanisch
+ * matthias@mathan.io
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.mathan.sparkfun;
 
 import io.mathan.sparkfun.Display.Constants;
 
+/**
+ * The DataBuilder provides methods for generating the data arrays which can be sent to the device. The data array will be of length 5 always and contains the data for the commands
+ * {@link Constants#CMD_1ST}, {@link Constants#CMD_2ND}, {@link Constants#CMD_3RD}, {@link Constants#CMD_4TH} and {@link Constants#CMD_DECIMALS} in this particular order.
+ */
 public class DataBuilder {
 
   public static byte[] empty() {
@@ -22,9 +43,6 @@ public class DataBuilder {
     data[3] = Constants.DIGITS[Integer.parseInt(""+value.charAt(4))];
     data[4] = Constants.DECIMALS_TIME;
     return data;
-  }
-  public static byte[] fromInt(int value) {
-    return fromInt(value, false);
   }
 
   public static byte[] fromInt(int value, boolean leadingZeros) {
@@ -62,9 +80,6 @@ public class DataBuilder {
       data[3] = Constants.DIGIT_0;
     }
     return data;
-  }
-  public static byte[] fromFloat(float value, int decimals) {
-    return fromFloat(value, decimals, false);
   }
 
   public static byte[] fromFloat(float value, int decimals, boolean leadingZeros) {
